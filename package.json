@@ -1,0 +1,13 @@
+{
+  "name": "hearings",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "browserify -t brfs notice.js > bundle.js"
+  },
+  "dependencies": {
+    "lodash": "*",
+    "moment":"*",
+    "brfs":"*"
+  }
+}
