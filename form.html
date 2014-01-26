@@ -217,13 +217,20 @@
 
         var reg = XRegExp('(?<type>(PR|Proposed Resolution)|(B|Bill))(\\s?)(?<period>\\d{1,2})(\\-)(?<number>\\d{1,4})','g');
         return XRegExp.replace(h, reg, function(d) {
+
+          // Bill or PR?
           var t = (d.type[0] == "B" ? "B" : "PR");
+
+          // Leading Zeros
           while (d.number.length < 4) {
              d.number = "0" + d.number;
           }
+
+          //Build the URL
             var identifer = t + d.period + '-' + d.number;
-            console.log(identifer)
             var url = 'http://dcclims1.dccouncil.us/lims/legislation.aspx?LegNo=' + identifer;
+
+          //Return the Linked URL
             return linked(url, d);
         }, "all");
 
