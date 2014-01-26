@@ -251,6 +251,14 @@
             });
             $("#councilmember").val(cm["chair"]);
         })
+        $("#date").change(function () {
+          var t0 = moment($("#date").val());
+          var t1 = t0.subtract('days', 1).format("YYYY-MM-DD");
+          var t2 = t0.add('days', 14).format("YYYY-MM-DD");
+          $("#testimony_deadline").val(t1);
+          $("#written_deadline").val(t1);
+          $("#record_close").val(t2);
+        })
     })
     </script>
 </body>
