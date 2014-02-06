@@ -45,7 +45,7 @@
                         <!-- Select Basic -->
                         <div class="form-group">
                             <label class="form-label" for="councilmember">Committee Chair</label>
-                            <select id="councilmember" name="councilmember" class="form-control">
+                            <select id="councilmember" multiple name="councilmember" class="form-control">
                                 <option>Yvette Alexander</option>
                                 <option>Marion Barry</option>
                                 <option>Anita Bonds</option>
@@ -147,7 +147,7 @@
                             <label class="form-label" for="record_close">Record Close</label>
                             <input class="form-control" id="record_close" name="record_close" type="date" value="" required="">
                         </div>
-                        
+
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="form-label" for="abbreviated">Abbreviated?</label>
@@ -169,20 +169,38 @@
                         <!-- Additional options-->
                         <div class="form-group">
                             <label class="control-label">Additional Options</label>
-                                
-                                <div class="checkbox">
-                                <input type="checkbox" id="distribute_testimony" name="additional_options[]">Distribute Testimony?<p class="help-block">Yes, if you distribute testimony before hearing.</p>
-                                </div>
-                                <div class="checkbox">
-                                <input type="checkbox" id="less_time" name="additional_options[]">Less time if many witnesses?<p class="help-block">Yes, if you opt to reduce the amount of time witnesses may testify.</p>
-                                </div>
+
+                            <div class="checkbox">
+                                <input type="checkbox" id="distribute_testimony" name="additional_options[]">Distribute Testimony?
+                                <p class="help-block">Yes, if you distribute testimony before hearing.</p>
+                            </div>
+                            <div class="checkbox">
+                                <input type="checkbox" id="less_time" name="additional_options[]">Less time if many witnesses?
+                                <p class="help-block">Yes, if you opt to reduce the amount of time witnesses may testify.</p>
+                            </div>
                         </div>
-                        <hr/>    
+
+                        <!-- Select Basic -->
+                        <div class="form-group">
+                            <label class="form-label" for="testimony_rules">Testimony Rules?</label>
+                            <select id="testimony_rules" name="testimony_rules" class="form-control">
+                                <option>3 minutes for all</option>
+                                <option selected="selected">5 minutes for organizations, 3 minutes for unaffiliated</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="form-label" for="testimony_copies">Copies of testimony?</label>
+                            <input class="form-control" id="testimony_copies" name="testimony_copies" type="text" value="5">
+                        </div>
+
+                        <hr/>
                         <!-- Button (Double) -->
                         <div class="form-group" align="center">
                             <button type="button" id="submit_email" name="submit_email" class="btn btn-default" onclick="submitEmail()">Submit by Email</button>
                             <button type="button" id="preview_html" name="preview_html" class="btn btn-default" onclick="previewHTML()">Preview HTML</button>
-                            <button type="button" id="make_pdf" name="make_pdf" class="btn btn-default" onclick="makePDF()">Make a PDF</button>
+                            <!--                            <button type="button" id="make_pdf" name="make_pdf" class="btn btn-default" onclick="makePDF()">Make a PDF</button>-->
                         </div>
 
                     </fieldset>
@@ -207,7 +225,7 @@
     <script src="./js/lodash.compat.js"></script>
     <script src="./js/FileSaver.js"></script>
     <script type="text/javascript">
-    var preview = '<h1>COUNCIL OF THE DISTRICT OF COLUMBIA<br /><%= committee_name %><br />NOTICE OF PUBLIC <%= hearing_type %></h1><%= address %><hr /><div id="abbreviated"><%= abbreviated_revised %></div><h2><%= councilmember %><br />CHAIR, <%= committee_name %><br />ANNOUNCES A PUBLIC <%= hearing_type %><br /></h2><div class="hearing">on</div><h2><%= hearing_title %></h2> <div class="hearing"><p>on</p><p><%= date %><br /><%= time %><br /><%= room %><br />1350 Pennsylvania Avenue NW<br />Washington, DC 20004</p></div> <div class="hearing-notice-body"> <p><%= councilmember %>, Chair of the <%= committee_name %>, announces a public <%= hearing_type %> of the <%= committee_name %> on <%= hearing_title %>. The public <%= hearing_type %> will take place at <%= time %> on <%= date %> in <%= room %> of the John A. Wilson Building. <strong><%= abbreviated %> <%= revised %></strong></p> <p><%= hearing_notice_body %></p><p>Those who wish to testify are asked to telephone the <%= committee_name %> at <%= committee_phone %>, or e-mail <%= committee_contact %>, at <%= committee_contact_email %>, and furnish their name, address, telephone number, and organizational affiliation, if any, by the close of business on <%= witness_deadline %>. Persons wishing to testify are encouraged, but not required, to submit 10 copies of written testimony. <%= distribute_testimony %>Witnesses should limit their testimony to three minutes<%= less_time %>.</p> <p>If you are unable to testify at the hearing, written statements are encouraged and will be made a part of the official record. Copies of written statements should be submitted to the <%= committee_name %>, Council of the District of Columbia, <%= address %>. The record will close at 5:00 p.m. on <%= record_close %>.</p>';
+    var preview = '<h1>COUNCIL OF THE DISTRICT OF COLUMBIA<br /><%= committee_name %><br />NOTICE OF PUBLIC <%= hearing_type %></h1><%= address %><hr /><div id="abbreviated"><%= abbreviated_revised %></div><h2><%= councilmember %><br />CHAIR, <%= committee_name %><br />ANNOUNCES A PUBLIC <%= hearing_type %><br /></h2><div class="hearing">on</div><h2><%= hearing_title %></h2> <div class="hearing"><p>on</p><p><%= date %><br /><%= time %><br /><%= room %><br />1350 Pennsylvania Avenue NW<br />Washington, DC 20004</p></div> <div class="hearing-notice-body"> <p><%= councilmember %>, Chair of the <%= committee_name %>, announces a public <%= hearing_type %> of the <%= committee_name %> on <%= hearing_title %>. The public <%= hearing_type %> will take place at <%= time %> on <%= date %> in <%= room %> of the John A. Wilson Building. <strong><%= abbreviated %> <%= revised %></strong></p> <p><%= hearing_notice_body %></p><p>Those who wish to testify are asked to telephone the <%= committee_name %> at <%= committee_phone %>, or e-mail <%= committee_contact %>, at <%= committee_contact_email %>, and furnish their name, address, telephone number, and organizational affiliation, if any, by the close of business on <%= witness_deadline %>. Persons wishing to testify are encouraged, but not required, to submit <%= testimony_copies %> copies of written testimony. <%= distribute_testimony %><%= witness_rules %><%= less_time %>.</p> <p>If you are unable to testify at the hearing, written statements are encouraged and will be made a part of the official record. Copies of written statements should be submitted to the <%= committee_name %>, Council of the District of Columbia, <%= address %>. The record will close at 5:00 p.m. on <%= record_close %>.</p>';
 
     function submitEmail() {
         var formObj = JSON.stringify(createJSONobj(), null, '\t');
@@ -222,9 +240,8 @@
         $('.form-control').each(function(i) {
             out[$(this).attr("id")] = $(this).val();
         });
-        out["hearing_notice_body"] = marked(out["hearing_notice_body"]);
-        $('input:checkbox:checked').each(function (i) {
-            out[$(this).attr("id")] = ($(this).length > 0 ? true : false); 
+        $('input:checkbox:checked').each(function(i) {
+            out[$(this).attr("id")] = ($(this).length > 0 ? true : false);
         })
         out["abbreviated_revised"] = [($("#abbreviated").val() == "" ? "" : "ABBREVIATED")];
         out["abbreviated_revised"].push(($("#revised").val() == "" ? "" : "REVISED"));
@@ -242,37 +259,31 @@
         formObj["distribute_testimony"] = (formObj["distribute_testimony"] ?
             formObj["distribute_testimony"] = "If submitted by the close of business on " + formObj["written_deadline"] + ", the testimony will be distributed to Councilmembers before the hearing." : "");
         formObj["less_time"] = (formObj["less_time"] ? "; less time will be allowed if there are a large number of witnesses" : "");
-        $('#rendered').html(link2bills(_.template(preview, formObj)));
-    }
+        formObj["witness_rules"] = ($("#witness_rules").val() == "3 minutes for all" ? "Witnesses should limit their testimony to three minutes" : "Persons representing organizations will have five minutes to present their testimony. Individuals will have three minutes to present their testimony");
+        formObj["hearing_notice_body"] = marked(out["hearing_notice_body"]);
 
-    function makePDF() {
-        /*        var formObj = createJSONobj();
-        var outHTML = _.template(preview, formObj); 
-        var blob = new Blob([outHTML], {type: "application/xhtml;charset=utf-8"})
-        saveAs(blob, "test.xhtml")
-*/
-        alert('working on it');
+        $('#rendered').html(link2bills(_.template(preview, formObj)));
     }
 
     function link2bills(h) {
         // Regex is "BXX-XXX" or "PRXX-XXX" or "B XX-XXX"
 
-        var reg = XRegExp('(?<type>(PR|Proposed Resolution)|(B|Bill))(\\s?)(?<period>\\d{1,2})(\\-)(?<number>\\d{1,4})','gi');
+        var reg = XRegExp('(?<type>(PR|Proposed Resolution)|(B|Bill))(\\s?)(?<period>\\d{1,2})(\\-)(?<number>\\d{1,4})', 'gi');
         return XRegExp.replace(h, reg, function(d) {
 
-          // Bill or PR?
-          var t = (d.type[0].toLowerCase() == "b" ? "B" : "PR");
+            // Bill or PR?
+            var t = (d.type[0].toLowerCase() == "b" ? "B" : "PR");
 
-          // Leading Zeros
-          while (d.number.length < 4) {
-             d.number = "0" + d.number;
-          }
+            // Leading Zeros
+            while (d.number.length < 4) {
+                d.number = "0" + d.number;
+            }
 
-          //Build the URL
+            //Build the URL
             var identifer = t + d.period + '-' + d.number;
             var url = 'http://dcclims1.dccouncil.us/lims/legislation.aspx?LegNo=' + identifer;
 
-          //Return the Linked URL
+            //Return the Linked URL
             return linked(url, d);
         }, "all");
 
@@ -284,7 +295,37 @@
 
     $("input[type='date']").datepicker();
 
-    var committees = [{"committee": "Committee on Business, Consumer, and Regulatory Affairs", "chair": "Vincent Orange"}, {"committee": "Committee on Economic Development", "chair": "Muriel Bowser"}, {"committee": "Committee on Education", "chair": "David Catania"}, {"committee": "Committee on Finance and Revenue", "chair": "Jack Evans"}, {"committee": "Committee on Health", "chair": "Yvette Alexander"}, {"committee": "Committee on Human Services", "chair": "Jim Graham"}, {"committee": "Committee on Government Operations", "chair": "Kenyan McDuffie"}, {"committee": "Committee on the Judiciary and Public Safety", "chair": "Tommy Wells"}, {"committee": "Committee on Transportation and the Environment", "chair": "Mary Cheh"}, {"committee": "Committee of the Whole", "chair": "Phil Mendelson"}];
+    var committees = [{
+        "committee": "Committee on Business, Consumer, and Regulatory Affairs",
+        "chair": "Vincent Orange"
+    }, {
+        "committee": "Committee on Economic Development",
+        "chair": "Muriel Bowser"
+    }, {
+        "committee": "Committee on Education",
+        "chair": "David Catania"
+    }, {
+        "committee": "Committee on Finance and Revenue",
+        "chair": "Jack Evans"
+    }, {
+        "committee": "Committee on Health",
+        "chair": "Yvette Alexander"
+    }, {
+        "committee": "Committee on Human Services",
+        "chair": "Jim Graham"
+    }, {
+        "committee": "Committee on Government Operations",
+        "chair": "Kenyan McDuffie"
+    }, {
+        "committee": "Committee on the Judiciary and Public Safety",
+        "chair": "Tommy Wells"
+    }, {
+        "committee": "Committee on Transportation and the Environment",
+        "chair": "Mary Cheh"
+    }, {
+        "committee": "Committee of the Whole",
+        "chair": "Phil Mendelson"
+    }];
 
     $(document).ready(function() {
         $("#committee_name").change(function() {
@@ -293,13 +334,35 @@
             });
             $("#councilmember").val(cm["chair"]);
         })
-        $("#date").change(function () {
-          var t0 = moment($("#date").val());
-          var t1 = t0.subtract('days', 1).format("YYYY-MM-DD");
-          var t2 = t0.add('days', 14).format("YYYY-MM-DD");
-          $("#witness_deadline").val(t1);
-          $("#written_deadline").val(t1);
-          $("#record_close").val(t2);
+
+        //TODO: Work it out so that multiple committees actually render nicely (instead of "Muriel Bowser,Jack Evans, Chair of the Committee on Economic Development,Committee on Finance and Revenue, announces"... *shudder*)
+        /*        $("#committee_name").change(function() {
+            var cm = [];
+            _.each($("#committee_name").val(), function (cmte) {
+                return cm.push(_.find(committees, {
+                    "committee": cmte
+                })["chair"]);
+            })
+
+            $("#councilmember").val(cm);
+        })
+*/
+
+        $("#date").change(function() {
+            var t0 = moment($("#date").val());
+
+            if (t0.weekday() == 1) {
+                //Make sure that you're not asking for testimony on a Saturday or Sunday
+                var t1 = t0.subtract('days',3).format("YYYY-MM-DD");        
+            }
+            else {
+                //Any other day, get it the day before
+                var t1 = t0.subtract('days', 1).format("YYYY-MM-DD");
+            }
+            var t2 = t0.add('days', 14).format("YYYY-MM-DD");
+            $("#witness_deadline").val(t1);
+            $("#written_deadline").val(t1);
+            $("#record_close").val(t2);
         })
     })
     </script>
