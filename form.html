@@ -45,7 +45,7 @@
                         <!-- Select Basic -->
                         <div class="form-group">
                             <label class="form-label" for="councilmember">Committee Chair</label>
-                            <select id="councilmember" multiple name="councilmember" class="form-control">
+                            <select id="councilmember" name="councilmember" class="form-control">
                                 <option>Yvette Alexander</option>
                                 <option>Marion Barry</option>
                                 <option>Anita Bonds</option>
@@ -295,8 +295,16 @@
         return "<a href='" + url + "'>" + text + "</a>";
     }
 
-    $("input[type='date']").datepicker();
+    //Deal with the fact that Mozilla and IE don't support "date" types
+    var i = document.createElement("input");
+    i.setAttribute("type", "date");
 
+    // if date isn't supported
+    if (i.type == "text") {
+        // Use jQuery UI
+        $("input[type='date']").datepicker();
+    }
+    
     var committees = [{
         "committee": "Committee on Business, Consumer, and Regulatory Affairs",
         "chair": "Vincent Orange"
